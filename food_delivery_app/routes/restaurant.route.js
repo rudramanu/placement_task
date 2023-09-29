@@ -42,5 +42,20 @@ restaurantRouter.post("/:id/menu", authenticate, async (req, res) => {
     res.send({ message: "Something went wrong while adding menu" });
   }
 });
+restaurantRouter.delete("/:restid/menu/:id", authenticate, async (req, res) => {
+  let restid = req.params.restid;
+  let id = req.params.id;
+  try {
+    let restaurant = await RestaurantModel.findByIdAndUpdate(
+      { _id: restid },
+      { $pull: { menu: { _id: id } } }
+    );
+    if (restaurant) {
+      res.send({ message: "Menu deleted" });
+    }
+  } catch (error) {
+    res.send({ message: "Getting error while removing the menu" });
+  }
+});
 
 module.exports = { restaurantRouter };
