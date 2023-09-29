@@ -1,6 +1,6 @@
 const express = require("express");
 const { connection } = require("./configs/db");
-// const { userRouter } = require("./routes/user.route");
+const { userRouter } = require("./routes/user.route");
 // const { restaurantRouter } = require("./routes/restaurant.route");
 // const { orderRouter } = require("./routes/order.route");
 // const { authenticate } = require("./middleware/authenticate");
@@ -12,7 +12,7 @@ require("dotenv").config();
 app.use("/home", (req, res) => {
   res.send("working");
 });
-// app.use("/", userRouter);
+app.use("/", userRouter);
 // app.use("/restaurants", restaurantRouter);
 // app.use("/orders", authenticate, orderRouter);
 
