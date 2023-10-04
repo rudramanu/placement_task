@@ -53,8 +53,11 @@ listRouter.post("/:id", authenticate, async (req, res) => {
         $push: {
           list: {
             productId,
-            quantity: 1,
             price: product.price,
+            title: product.name,
+            description: product.description,
+            category: product.category,
+            owner: userId,
           },
         },
       }
