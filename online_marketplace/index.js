@@ -1,5 +1,6 @@
 const express = require("express");
 const { connection } = require("./configs/db");
+const { userRouter } = require("./routes/user.route");
 
 const cors = require("cors");
 const app = express();
@@ -11,6 +12,7 @@ require("dotenv").config();
 app.use("/home", (req, res) => {
   res.send("APIs are working");
 });
+app.use("/", userRouter);
 
 app.listen(process.env.port, async () => {
   try {

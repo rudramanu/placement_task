@@ -10,7 +10,7 @@ const userRouter = express.Router();
 
 userRouter.post("/signup", async (req, res) => {
   const { name, email, password, address, phoneNumber } = req.body;
-  if (!name || !email || !password || address || !phoneNumber) {
+  if (!name || !email || !password || !address || !phoneNumber) {
     return res.status(409).send({ message: "Please provide all fields" });
   }
   try {
@@ -70,6 +70,34 @@ userRouter.post("/login", async (req, res) => {
         return res.status(403).send({ message: "Wrong Credentials" });
       }
     });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+userRouter.get("/users", async (req, res) => {
+  try {
+    const users = await UserModel.find();
+    res.status(200).send(users);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+userRouter.get("/users/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await UserModel.findOne({ _id: id });
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+userRouter.put("/users/:id", async (req, res) => {
+  const id = req.params.id;
+  const update = req.body;
+  try {
+    const user = await UserModel.findByIdAndUpdate(id, update);
+    res.send({ message: "Product Updated Sucessfully" });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
