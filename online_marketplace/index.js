@@ -1,6 +1,8 @@
 const express = require("express");
 const { connection } = require("./configs/db");
+
 const { userRouter } = require("./routes/user.route");
+const { productRouter } = require("./routes/product.route");
 
 const cors = require("cors");
 const app = express();
@@ -13,6 +15,7 @@ app.use("/home", (req, res) => {
   res.send("APIs are working");
 });
 app.use("/", userRouter);
+app.use("/products", productRouter);
 
 app.listen(process.env.port, async () => {
   try {

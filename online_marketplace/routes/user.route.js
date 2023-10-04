@@ -8,7 +8,7 @@ const { UserModel } = require("../models/user.model");
 
 const userRouter = express.Router();
 
-userRouter.post("/signup", async (req, res) => {
+userRouter.post("/register", async (req, res) => {
   const { name, email, password, address, phoneNumber } = req.body;
   if (!name || !email || !password || !address || !phoneNumber) {
     return res.status(409).send({ message: "Please provide all fields" });
