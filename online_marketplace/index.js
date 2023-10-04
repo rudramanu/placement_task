@@ -3,8 +3,10 @@ const { connection } = require("./configs/db");
 
 const { userRouter } = require("./routes/user.route");
 const { productRouter } = require("./routes/product.route");
+const { listRouter } = require("./routes/list.route");
 
 const cors = require("cors");
+
 const app = express();
 app.use(cors());
 
@@ -16,6 +18,7 @@ app.use("/home", (req, res) => {
 });
 app.use("/", userRouter);
 app.use("/products", productRouter);
+app.use("/listings", listRouter);
 
 app.listen(process.env.port, async () => {
   try {
